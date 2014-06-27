@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>4images</title>
+<script type="text/javascript" src="inc/JSAN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="inc/Test/Builder.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../lib/Animation/Cube.js"></script>
+</head>
+<body>
+<img id="cube_here" src="images/IMG_1292-320.jpg" width="320" height="240"><br/>
+<pre id="test"><script><!--
+
+	var cube_list = [
+	    "images/IMG_1292-320.jpg",
+	    "images/IMG_3857-320.jpg",
+	    "images/P1000681-320.jpg",
+	    "images/P1000806-320.jpg"
+	];
+
+    var test = new Test.Builder();
+    test.plan({tests: 6});
+
+    var cube = new Animation.Cube("cube_here",cube_list);
+	cube.rotateSeconds = 0.5;
+    test.ok( cube, "loaded." );
+
+    var async = test.beginAsync( 5000 );
+    cube.onInterval = function ( cur ) {
+        test.ok( true, "onInterval "+cur );
+		if ( cur == 0 ) cube.finish();
+    };
+    cube.onComplete = function ( cur ) {
+        test.ok( true, "onComplete "+cur );
+        test.endAsync( async );
+    };
+	cube.rotate();
+
+//--></script></pre>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+         <input id="angle"><button onclick="photo.Rotate(document.getElementById('angle').value*1);"></button>
+        <canvas id="WATP" width="220" height="220" ></canvas>
+        
+       
+    </body>
+<script>
+            function gObj(canvas,image,sx,sy){
+                
+
+                this.off_x=sx||0;
+                this.off_y=sy||0;
+                
+                if(canvas){
+                    this.canvas=typeof(canvas).toString().toLowerCase()=='string'?document.getElementById(canvas):canvas;
+                    this.context=this.canvas.getContext('2d');
+                }
+                if(canvas){
+                    if(typeof(image).toString().toLowerCase()=='string'){
+                        this.image=new Image();
+                        this.image.parent=this;
+                        this.image.src=image;
+                        this.image.onload=function(){
+                            this.parent.width=this.width;
+                            this.parent.height=this.height;
+                        }
+                    }else{
+                        this.image=image;
+                        this.image.parent=this;
+                        this.width=this.image.width;
+                        this.height=this.image.height;
+                    }
+                    
+                }
+                
+
+                
+ 
+                this.Scale=function(pc,position_x,position_y){
+
+                    var pc=pc||100;
+                    var position_x=position_x||'left';
+                    var position_y=position_y||'top';
+                    
+                    dwidth=this.width*(pc/100);
+                    dheight=this.height*(pc/100);
+                    
+                    var dx=position_x=='left'?this.off_x:(position_x=='right'?(Math.floor(this.off_x+this.width-dwidth)):((Math.floor(this.width/2)+this.off_x)-Math.floor(dwidth/2)));
+                     var dy=position_x=='top'?this.off_y:(position_y=='bottom'?(Math.floor(this.off_y+this.height-dheight)):((Math.floor(this.height/2)+this.off_y)-Math.floor(dheight/2)));
+                    
+                    this.context.drawImage(this.image,0,0,this.width,this.height,dx,dy,dwidth,dheight);
+                }
+                
+                this.Flip=function(){
+                    for(var i=this.width-1; i>=0;i--){
+                        this.context.drawImage(this.image,i,0,1,this.height,(this.width-1-i),0,1,this.height);
+                    }
+                }
+                
+                
+                this.Rotate=function(angle){
+                    this.canvas.width=220;
+                    this.canvas.height=220;
+                    var angle=angle||0
+                    var pc=Math.cos(angle*Math.PI/180);
+                    var dwidth=this.width*pc;
+                    var dheight=pc*this.height;
+                    var y2=(this.height-dheight)/2;
+                    var pend=y2/dwidth;
+                    var diff=this.width-dwidth;
+                    diff=diff==0?-1:diff;
+                    var real_rate=this.width/diff;
+                    
+                    var rate=Math.floor(real_rate);
+                    var mod_rate=real_rate-rate;
+                    
+                    
+                    var rate_plus=Math.ceil(1/mod_rate);
+                    var count=0;
+                    var count1=0;
+                    for(var i=0;i<this.width;i++){
+                        
+                        y2=count1*pend;
+                        dheight=this.height-(2*y2);
+                        
+                        
+                        this.context.drawImage(this.image,i,0,1,this.height,count1,0,1,this.height);
+                        count1++;
+                        if((i%rate==0) && i!=0){
+                            i++;
+                            count++;
+                        }
+                        if(count==rate_plus*rate){
+                            i++;
+                            count=0;
+                        }
+                    }
+                }
+                
+                
+               
+            }
+            
+            function Rotate(){
+                photo.Rotate(angle); 
+                angle+=direction;
+                if(angle==90)
+                    direction=-1;
+                else if (angle==0)
+                    direction=1;
+            }
+            
+            var direction=1;
+            var angle=0;
+            var photo=new gObj('WATP','img/pic_1.png');
+            if(!photo.width){
+                photo.image.onload=function(){
+                    this.parent.width=this.width;
+                    this.parent.height=this.height;
+                    //setInterval('Rotate();',30);
+                    photo.Rotate(0);
+                };
+            }
+        else
+                photo.Scale();
+        </script>
+</html>

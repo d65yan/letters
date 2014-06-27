@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>2images</title>
+<script type="text/javascript" src="inc/JSAN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="inc/Test/Builder.js" charset="UTF-8"></script>
+<script type="text/javascript" src="../lib/Animation/Cube.js"></script>
+</head>
+<body>
+<img id="cube_here" src="images/mixi-3.jpg" width="180" height="180"><br/>
+<pre id="test"><script><!--
+
+    var test = new Test.Builder();
+    test.plan({tests: 2});
+
+    var cube = new Animation.Cube("cube_here","images/mixi-1.jpg");
+    test.ok( cube, "loaded." );
+
+    var async = test.beginAsync( 5000 );
+    cube.onComplete = function ( cur ) {
+        test.ok( cur, "animation completed" );
+        test.endAsync( async );
+    };
+
+	cube.rotate();
+
+//--></script></pre>
+</body>
+</html>

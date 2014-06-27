@@ -1,0 +1,62 @@
+NAME
+    Animation.Cube -- Rotating Cube Animation Effect
+
+SYNOPSIS
+    2-Images-Rotation-Mode:
+
+        var cube = new Animation.Cube( img_id, "next.jpg" );
+        cube.rotate();
+
+    N-Images-Loop-Mode:
+
+        var list = [
+            "first.jpg",
+            "second.jpg",
+            "third.jpg",
+            "forth.jpg"
+        ];
+        var cube = new Animation.Cube( img_id, list );
+        cube.rotate();
+
+DESCRIPTION
+    This library provides a rotating cube animation effect.
+
+METHODS
+  cube = new Animation.Cube( id_or_elem, "next.jpg" );
+    This constructor method returns a new Animation.Cube object. First
+    argument is a <img> element or its id. 2-Images-Rotation-Mode is used
+    when second argument is a image's URL.
+
+  cube = new Animation.Cube( id_or_elem, ["1st.jpg","2nd.jpg",...] );
+    N-Images-Loop-Mode is used when second argument is a array for URLs.
+    Number of images is not limited. I think four images is best for
+    intuitive cube's shape.
+
+  cube.rotate();
+    This method starts a animation effect.
+
+  cube.finish();
+    This method forces to stop a animation effect if it's running.
+
+  PROPERTIES
+    Following properties are available:
+
+        cube.onComplete = function (cur) { ... };
+        cube.onInterval = function (cur) { ... };
+        cube.background = "#000000";
+        cube.waitSeconds = 1.000;
+        cube.rotateSeconds = 0.500;
+        cube.minResolution =  2;
+        cube.maxResolution = 32;
+        cube.cursor = 0;
+        cube.clockWise = true;
+
+AUTHOR
+    Yusuke Kawasaki http://www.kawa.net/
+
+COPYRIGHT AND LICENSE
+    Copyright (c) 2005-2006 Yusuke Kawasaki. All rights reserved. This
+    program is free software; you can redistribute it and/or modify it under
+    the Artistic license. Or whatever license I choose, which I will do
+    instead of keeping this documentation like it is.
+

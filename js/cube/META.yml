@@ -1,0 +1,7 @@
+---
+name: Animation.Cube
+version: 0.04
+author:
+  - Yusuke Kawasaki <u-suke [at] kawa.net>
+abstract: Rotating Cube Animation Effect
+license: artistic
