@@ -1,10 +1,10 @@
 <?php 
 $user=new stdClass();
-$user->f_name='Dayan';
-$user->l_name='Moreno';
-$user->uname='dmoreno';
-$user->email='d65yan@gmail.com';
-$user->phone='3052977790';
+$user->f_name='******';
+$user->l_name='*******';
+$user->uname='*******';
+$user->email='*******';
+$user->phone='*********';
 $user->page_size=25;
 $user->picture='img/nopic.jpg';
 $user->id=50;
